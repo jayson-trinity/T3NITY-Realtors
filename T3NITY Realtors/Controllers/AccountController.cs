@@ -9,12 +9,15 @@ namespace T3NITY_Realtors.Controllers
         protected ICustomerServices _customerServices;
         protected ILandlordServices _landlordServices;
         protected IAdminServices _adminServices;
+        protected IUserServices _userServices;
 
-        public AccountController(ICustomerServices customerServices, ILandlordServices landlordServices, IAdminServices adminServices)
+
+        public AccountController(ICustomerServices customerServices, ILandlordServices landlordServices, IAdminServices adminServices, IUserServices userServices)
         {
             _customerServices = customerServices;
             _landlordServices = landlordServices;
             _adminServices = adminServices;
+            _userServices = userServices;   
         }
 
 
@@ -67,7 +70,7 @@ namespace T3NITY_Realtors.Controllers
         {
             try
             {
-                var loginCheck = _customerServices.LoginCustomer(user);
+                var loginCheck = _userServices.LoginUser(user);
 
             if (loginCheck != null)
             {
