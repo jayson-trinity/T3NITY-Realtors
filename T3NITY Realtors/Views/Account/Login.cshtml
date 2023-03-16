@@ -1,0 +1,42 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="row container-fluid">
+    <div class="row gy-5">
+        <div class="col-md-7 col-md-offset-2">
+            <section>
+                <div class="col-md-7">
+                    <section><img src="~/img/imglog.png" width="600px" /></section>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-3">
+            <form id="loginForm" asp-controller="Account" asp-action="Login" method="post">
+                <h3 class="text-secondary mt-3">Login</h3>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-floating mb-2">
+                    <input asp-for="Email" class="form-control" type="text" aria-required="true" />
+                    <label asp-for="Email"></label>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-2">
+                    <input asp-for="Password" class="form-control" type="text" aria-required="true" />
+                    <label asp-for="Password"></label>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <p class="text-danger">@ViewBag.Error</p>
+                <button id="loginSubmit" type="submit" class="mb-2 w-100 btn btn-lg btn-primary">Login</button>
+
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
