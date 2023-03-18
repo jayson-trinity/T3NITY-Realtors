@@ -33,7 +33,6 @@ namespace T3NITY_Realtors.Controllers
         {
             // res is set to false to determine when process is successful.
             var res = false;
-
             #region Checks Type of user to register
             if (userModel.Role == "Customer")
             {
@@ -49,6 +48,7 @@ namespace T3NITY_Realtors.Controllers
             if (res)
             {
                 ViewBag.Message = "Registration Successful";
+                RedirectToAction("Login");
                 
             }
             else
@@ -57,7 +57,7 @@ namespace T3NITY_Realtors.Controllers
             }
             #endregion
 
-            return View();
+            return View(userModel);
         }
 
         public IActionResult Login()
@@ -74,6 +74,10 @@ namespace T3NITY_Realtors.Controllers
 
             if (loginCheck != null)
             {
+                    HttpContext.Session.SetString("","")
+                    HttpContext.Session.SetInt32("","")
+                    HttpContext.Session.SetString("","")
+
                 return View();
             }
            
