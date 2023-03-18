@@ -18,6 +18,12 @@ builder.Services.AddTransient<IDbOperations,DbOperations>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("RealtorDb")));
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options => {
+    options.IdleTimeout = TimeSpan.FromMinutes(5);//You can set Time   
+});
+builder.Services.AddMvc();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,7 +38,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(

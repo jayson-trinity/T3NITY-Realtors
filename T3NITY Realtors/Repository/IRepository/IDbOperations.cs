@@ -1,4 +1,5 @@
-﻿using T3NITY_Realtors.Entities;
+﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+using T3NITY_Realtors.Entities;
 
 namespace T3NITY_Realtors.Repository.IRepository
 {
@@ -6,7 +7,10 @@ namespace T3NITY_Realtors.Repository.IRepository
     {
         IGenericRepository<Admin> AdminRepository();
         IGenericRepository<Customer> CustomersRepository();
+        DatabaseFacade GetDbContext();
         IGenericRepository<Landlord> LandlordsRepository();
+        IGenericRepository<ListingImages> ListingImagedRepository();
+        IGenericRepository<Listings> ListingsRepository();
         IGenericRepository<Users> UsersRepository();
     }
 }

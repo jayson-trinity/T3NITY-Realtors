@@ -4,7 +4,7 @@ using T3NITY_Realtors.Services.IServices;
 
 namespace T3NITY_Realtors.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         protected ICustomerServices _customerServices;
         protected ILandlordServices _landlordServices;
@@ -17,7 +17,7 @@ namespace T3NITY_Realtors.Controllers
             _customerServices = customerServices;
             _landlordServices = landlordServices;
             _adminServices = adminServices;
-            _userServices = userServices;   
+            _userServices = userServices;
         }
 
 
@@ -49,7 +49,7 @@ namespace T3NITY_Realtors.Controllers
             {
                 ViewBag.Message = "Registration Successful";
                 RedirectToAction("Login");
-                
+
             }
             else
             {
@@ -72,22 +72,28 @@ namespace T3NITY_Realtors.Controllers
             {
                 var loginCheck = _userServices.LoginUser(user);
 
-            if (loginCheck != null)
-            {
-                    HttpContext.Session.SetString("","")
-                    HttpContext.Session.SetInt32("","")
-                    HttpContext.Session.SetString("","")
+                if (loginCheck != null)
+                {
+                    SetUser(loginCheck);
+                    if (loginCheck.Role == UtilData.Customer)
+                    {
+                        RedirectToAction("Index", "Listing");
+                    }
 
-                return View();
-            }
-           
+                    if (loginCheck.Role == UtilData.Landlord)
+                    {
+                        RedirectToAction("Index", "LandLord");
+                    }
+                    return View();
+                }
+
             }
             catch (Exception e)
             {
                 ViewBag.Error = e.Message;
-              
+
             }
-            
+
             return View(user);
         }
     }

@@ -20,7 +20,7 @@ namespace T3NITY_Realtors.Services
             {
                 if (userModel != null)
                 {
-                    Users users = new Users()
+                    Users users = new()
                     {
                         Password = userModel.Password,
                         Role = userModel.Role,
@@ -29,7 +29,7 @@ namespace T3NITY_Realtors.Services
 
                     var dbUser = _DbOperations.UsersRepository().Add(users);
 
-                    Landlord landlord = new Landlord()
+                    Landlord landlord = new()
                     {
                         Email = userModel.Email,
                         PhoneNumber = userModel.PhoneNumber,
@@ -49,6 +49,8 @@ namespace T3NITY_Realtors.Services
 
             return false;
         }
+
+
        
     }
 }

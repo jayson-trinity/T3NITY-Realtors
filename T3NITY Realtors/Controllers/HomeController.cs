@@ -4,13 +4,11 @@ using T3NITY_Realtors.Models;
 
 namespace T3NITY_Realtors.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController()
         {
-            _logger = logger;
         }
 
         public IActionResult Index()

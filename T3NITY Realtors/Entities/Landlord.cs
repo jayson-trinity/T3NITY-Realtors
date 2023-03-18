@@ -1,7 +1,12 @@
-﻿namespace T3NITY_Realtors.Entities
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace T3NITY_Realtors.Entities
 {
     public class Landlord
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
