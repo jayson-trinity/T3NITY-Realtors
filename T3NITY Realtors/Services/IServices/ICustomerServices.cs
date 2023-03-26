@@ -11,5 +11,6 @@ namespace T3NITY_Realtors.Services.IServices
         /// <param name="userModel"></param>
         /// <returns>Returns True if Successfull</returns>
         bool RegisterCustomer(UserModel userModel);
+        bool UpdateProfile(UserModel userModel);
     }
 }

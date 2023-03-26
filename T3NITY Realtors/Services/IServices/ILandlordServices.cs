@@ -6,5 +6,6 @@ namespace T3NITY_Realtors.Services.IServices
     {
        
         bool RegisterLandlord(UserModel userModel);
+        bool UpdateProfile(UserModel userModel);
     }
 }

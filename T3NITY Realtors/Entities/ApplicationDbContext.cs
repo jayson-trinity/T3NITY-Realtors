@@ -14,6 +14,8 @@ namespace T3NITY_Realtors.Entities
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Landlord> Landlords { get; set; }
         public virtual DbSet<Admin> Admin { get; set; }
+        public virtual DbSet<ListingImages> ListingImages { get; set; }
+        public virtual DbSet<Listings> Listings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

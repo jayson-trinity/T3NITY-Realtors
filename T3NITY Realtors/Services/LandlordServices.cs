@@ -15,9 +15,11 @@ namespace T3NITY_Realtors.Services
 
         public bool RegisterLandlord(UserModel userModel)
         {
+            var tranz = _DbOperations.GetDbContext();
 
             try
             {
+                tranz.BeginTransaction();
                 if (userModel != null)
                 {
                     Users users = new()
@@ -38,12 +40,14 @@ namespace T3NITY_Realtors.Services
                         UsersId = dbUser.Id
                     };
                     var dbLandlord = _DbOperations.LandlordsRepository().Add(landlord);
+
+                    tranz.CommitTransaction();
                     return true;
                 }
             }
             catch (Exception)
             {
-
+                tranz.RollbackTransaction();
                 throw;
             }
 
@@ -75,6 +79,7 @@ namespace T3NITY_Realtors.Services
 
             return false;
         }
+
 
     }
 }

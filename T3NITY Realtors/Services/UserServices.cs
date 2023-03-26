@@ -1,6 +1,5 @@
 ﻿using T3NITY_Realtors.Entities;
 using T3NITY_Realtors.Models;
-using T3NITY_Realtors.Repository;
 using T3NITY_Realtors.Repository.IRepository;
 using T3NITY_Realtors.Services.IServices;
 
@@ -25,7 +24,7 @@ namespace T3NITY_Realtors.Services
                     //test am
                     //
                     var details = GetUserDetails(user, _DbOperations);
-                    return new UserModel { LastName = details.LastName, Id = user.Id, Email = user.Username, Role = user.Role };
+                    return new UserModel { LastName = details.LastName, FirstName = details.FirstName, Id = user.Id, Email = user.Username, Role = user.Role };
                 }
                 else
                 {
@@ -42,7 +41,7 @@ namespace T3NITY_Realtors.Services
 
         public static dynamic GetUserDetails(Users users, IDbOperations dbOperations)
         {
-            if (users.Role == UtilData.Customer) 
+            if (users.Role == UtilData.Customer)
             {
                 var cust = dbOperations.CustomersRepository().Find(c => c.UsersId == users.Id);
                 return cust;

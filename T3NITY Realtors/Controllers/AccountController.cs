@@ -33,6 +33,7 @@ namespace T3NITY_Realtors.Controllers
         {
             // res is set to false to determine when process is successful.
             var res = false;
+            userModel.Password = UtilData.GetHash(userModel.Password);
             #region Checks Type of user to register
             if (userModel.Role == "Customer")
             {
@@ -70,6 +71,8 @@ namespace T3NITY_Realtors.Controllers
         {
             try
             {
+                user.Password = UtilData.GetHash(user.Password);
+
                 var loginCheck = _userServices.LoginUser(user);
 
                 if (loginCheck != null)
@@ -77,12 +80,12 @@ namespace T3NITY_Realtors.Controllers
                     SetUser(loginCheck);
                     if (loginCheck.Role == UtilData.Customer)
                     {
-                        RedirectToAction("Index", "Listing");
+                        return RedirectToAction("Index", "Listing");
                     }
 
                     if (loginCheck.Role == UtilData.Landlord)
                     {
-                        RedirectToAction("Index", "LandLord");
+                        return RedirectToAction("Dashboard", "LandLord");
                     }
                     return View();
                 }

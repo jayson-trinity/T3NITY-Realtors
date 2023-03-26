@@ -2,9 +2,9 @@
 
 namespace T3NITY_Realtors.Controllers
 {
-    public class LandLordController1 : Controller
+    public class LandLordController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Dashboard()
         {
             return View();
         }
