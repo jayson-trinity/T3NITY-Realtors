@@ -12,6 +12,7 @@ namespace T3NITY_Realtors.Models
         public decimal Price { get; set; }
         public string Status { get; set; }
         public string ListingCategory { get; set; }
+        public string Type { get; set; }
 
         public string AdminMessage { get; set; }
         public ListingImages DefaultImages { get; set; }
@@ -30,7 +31,8 @@ namespace T3NITY_Realtors.Models
                 ListingCategory = v.ListingCategory.ToString(),
                 Name = v.Name,
                 Price = v.Price,
-                Status = v.Status
+                Status = v.Status.ToString(),
+                Type = v.Type.ToString(),
             };
         }
     }

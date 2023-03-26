@@ -15,6 +15,7 @@ namespace T3NITY_Realtors.Entities
         public decimal Price { get; set; }
         public ListingCategory ListingCategory { get; set; }
         public Status Status { get; set; }
+        public Type Type { get; set; }
         public string AdminMessage { get; set; }
         public int UsersId { get; set; }
         public Users Users { get; set; }
@@ -37,10 +38,17 @@ namespace T3NITY_Realtors.Entities
 
     public enum Status
     {
-       Processing,
-       Approved,
-       Faked,
-       Declined,
+        Processing,
+        Approved,
+        Faked,
+        Declined,
+        Suspended
+    }
+    public enum Type
+    {
+        Rent,
+        Sale
+        
     }
 
 }

@@ -9,9 +9,9 @@
         public string ContactInfo { get; set; }
         public decimal Price { get; set; }
         public string ListingCategory { get; set; }
-
         public string PerWhat { get; set; }
         public string Status { get; set; }
+        public string Type { get; set; }
         public IFormFile DefaultImage { get; set; }
         public int UsersId { get; set; }
     }

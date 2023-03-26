@@ -33,6 +33,7 @@ namespace T3NITY_Realtors.Services
                         ListingCategory = (ListingCategory)Enum.Parse(typeof(ListingCategory), listingsModel.ListingCategory),
                         Price = listingsModel.Price,
                         Status = Status.Processing,
+                        Type = (Entities.Type)Enum.Parse(typeof(Entities.Type), listingsModel.Type),
                         UsersId = userId
                     };
 
@@ -47,6 +48,39 @@ namespace T3NITY_Realtors.Services
                         IsDefault = true
                     };
                     var dbImages1 = _DbOperations.ListingImagedRepository().Add(images);
+
+                    tranz.CommitTransaction();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                tranz.RollbackTransaction();
+                throw new Exception(e.Message);
+            }
+
+            return false;
+        }
+        public bool UpdateListing(ListingsModel listingsModel, int userId)
+        {
+            var tranz = _DbOperations.GetDbContext();
+
+            try
+            {
+                if (listingsModel != null)
+                {
+                    tranz.BeginTransaction();
+
+                    var dbListings = _DbOperations.ListingsRepository().Find(l => l.Id == listingsModel.Id);
+                    dbListings.Address = listingsModel.Address;
+                    dbListings.ContactInfo = listingsModel.ContactInfo;
+                    dbListings.Description = listingsModel.Description;
+                    dbListings.Name = listingsModel.Name;
+                    dbListings.ListingCategory = (ListingCategory)Enum.Parse(typeof(ListingCategory), listingsModel.ListingCategory);
+                    dbListings.Price = listingsModel.Price;
+                    dbListings.Type = (Entities.Type)Enum.Parse(typeof(Entities.Type), listingsModel.Type);
+
+                    _DbOperations.ListingsRepository().Update(dbListings, dbListings.Id);
 
                     tranz.CommitTransaction();
                     return true;
@@ -201,6 +235,32 @@ namespace T3NITY_Realtors.Services
             return false;
         }
 
+        public bool ChangeStatusListing(int ListingId, string status)
+        {
+            var tranz = _DbOperations.GetDbContext();
 
+            try
+            {
+                if (ListingId > 0)
+                {
+                    tranz.BeginTransaction();
+
+                    var dbListings = _DbOperations.ListingsRepository().Find(l => l.Id == ListingId);
+                    dbListings.Status = (Status)Enum.Parse(typeof(Status), status);
+
+                    _DbOperations.ListingsRepository().Update(dbListings, dbListings.Id);
+
+                    tranz.CommitTransaction();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                tranz.RollbackTransaction();
+                throw new Exception(e.Message);
+            }
+
+            return false;
+        }
     }
 }
