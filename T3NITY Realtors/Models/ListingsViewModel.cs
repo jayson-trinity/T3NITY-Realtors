@@ -10,8 +10,9 @@ namespace T3NITY_Realtors.Models
         public string Description { get; set; }
         public string ContactInfo { get; set; }
         public decimal Price { get; set; }
-        public string PerWhat { get; set; }
         public string Status { get; set; }
+        public string ListingCategory { get; set; }
+
         public string AdminMessage { get; set; }
         public ListingImages DefaultImages { get; set; }
         public IEnumerable<ListingImages> ListingImages { get; set; }
@@ -26,8 +27,8 @@ namespace T3NITY_Realtors.Models
                 ContactInfo = v.ContactInfo,
                 Description = v.Description,
                 Id = v.Id,
+                ListingCategory = v.ListingCategory.ToString(),
                 Name = v.Name,
-                PerWhat = v.PerWhat,
                 Price = v.Price,
                 Status = v.Status
             };

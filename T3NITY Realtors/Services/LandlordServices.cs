@@ -50,7 +50,31 @@ namespace T3NITY_Realtors.Services
             return false;
         }
 
+        public bool UpdateProfile(UserModel userModel)
+        {
 
-       
+            try
+            {
+                if (userModel != null)
+                {
+
+                    var dbLandlord = _DbOperations.LandlordsRepository().Find(l => l.UsersId == userModel.Id);
+                    dbLandlord.Email = userModel.Email;
+                    dbLandlord.PhoneNumber = userModel.PhoneNumber;
+                    dbLandlord.FirstName = userModel.FirstName;
+                    dbLandlord.LastName = userModel.LastName;
+                    _DbOperations.LandlordsRepository().Update(dbLandlord, userModel.Id);
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return false;
+        }
+
     }
 }

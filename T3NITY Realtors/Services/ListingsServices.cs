@@ -30,9 +30,9 @@ namespace T3NITY_Realtors.Services
                         ContactInfo = listingsModel.ContactInfo,
                         Description = listingsModel.Description,
                         Name = listingsModel.Name,
-                        PerWhat = listingsModel.PerWhat,
+                        ListingCategory = (ListingCategory)Enum.Parse(typeof(ListingCategory), listingsModel.ListingCategory),
                         Price = listingsModel.Price,
-                        Status = listingsModel.Status,
+                        Status = Status.Processing,
                         UsersId = userId
                     };
 
@@ -82,24 +82,125 @@ namespace T3NITY_Realtors.Services
             return null;
         }
 
-        public ListingsViewModel GetListing(int listingId)
+        public IEnumerable<ListingsViewModel> GetAllListings()
         {
             try
             {
 
-                var _listing = (ListingsViewModel)_DbOperations.ListingsRepository().Find(l => l.Id == listingId);
+                var _listings = _DbOperations.ListingsRepository().GetAll().Where(l => l.Status == Status.Approved).Select(l => (ListingsViewModel)l).ToList();
+                foreach (var list in _listings)
+                {
+                    list.DefaultImages = _DbOperations.ListingImagedRepository().Find(i => i.ListingsId == list.Id && i.IsDefault);
+                }
+                return _listings;
+            }
+            catch (Exception e)
+            {
 
-                _listing.ListingImages = _DbOperations.ListingImagedRepository().GetAll().Where(i => i.ListingsId == _listing.Id);
+                throw;
+            }
 
-                return _listing;
+            return null;
+        }
+
+        public ListingsViewModel GetListingById(int listingId)
+        {
+            try
+            {
+
+                if (listingId > 0)
+                {
+                    var _listing = (ListingsViewModel)_DbOperations.ListingsRepository().Find(l => l.Id == listingId);
+
+                    _listing.ListingImages = _DbOperations.ListingImagedRepository().GetAll().Where(i => i.ListingsId == _listing.Id);
+
+                    return _listing;
+                }
             }
             catch (Exception e)
             {
 
                 throw new Exception(e.Message);
             }
-
+            return null;
         }
+
+        public bool UploadImages(ImageUpload imageUpload)
+        {
+
+            try
+            {
+                if (imageUpload != null)
+                {
+                    var dbListings = _DbOperations.ListingsRepository().Find(l => l.Id == imageUpload.ListingsId) ?? throw new Exception("Invalid Listing ID");
+
+                    ListingImages images = new()
+                    {
+                        FileByte = imageUpload.File.GetBytes(),
+                        FileName = imageUpload.File.FileName,
+                        Extension = System.IO.Path.GetExtension(imageUpload.File.FileName),
+                        ListingsId = dbListings.Id,
+                        IsDefault = imageUpload.IsDefault
+                    };
+                    var dbImages1 = _DbOperations.ListingImagedRepository().Add(images);
+
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+            return false;
+        }
+
+        public IEnumerable<ListingImages> GetListingImages(int listingId)
+        {
+            try
+            {
+                if (listingId > 0)
+                {
+                    return _DbOperations.ListingImagedRepository().GetAll().Where(im => im.ListingsId == listingId).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+            return null;
+        }
+
+        public bool DeletListing(int listingId)
+        {
+            var tranz = _DbOperations.GetDbContext();
+
+            try
+            {
+                if (listingId > 0)
+                {
+                    tranz.BeginTransaction();
+                    var dbListingImages = _DbOperations.ListingImagedRepository().GetAll().Where(im => im.ListingsId == listingId).ToList();
+                    foreach (var img in dbListingImages)
+                    {
+                        _DbOperations.ListingImagedRepository().Delete(img);
+                    }
+                    var dbListings = _DbOperations.ListingsRepository().Find(li => li.Id == listingId);
+                    _DbOperations.ListingsRepository().Delete(dbListings);
+                    tranz.CommitTransaction();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                tranz.RollbackTransaction();
+                throw new Exception(e.Message);
+            }
+
+            return false;
+        }
+
 
     }
 }
