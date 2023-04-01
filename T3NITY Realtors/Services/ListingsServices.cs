@@ -32,7 +32,7 @@ namespace T3NITY_Realtors.Services
                         Name = listingsModel.Name,
                         ListingCategory = (ListingCategory)Enum.Parse(typeof(ListingCategory), listingsModel.ListingCategory),
                         Price = listingsModel.Price,
-                        Status = Status.Processing,
+                        Status = Status.Pending,
                         Type = (Entities.Type)Enum.Parse(typeof(Entities.Type), listingsModel.Type),
                         UsersId = userId
                     };

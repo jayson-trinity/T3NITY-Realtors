@@ -1,10 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using T3NITY_Realtors.Models;
 
 namespace T3NITY_Realtors.Controllers
 {
     public class BaseController : Controller
     {
+
+        public bool IsLoggedin;
+        public UserModel CurrentUser { get; set; }
+
+        public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        {
+            CurrentUser = GetUser();
+            ViewBag.Name = CurrentUser.FirstName;
+
+            if (CurrentUser.Id > 0)
+            {
+                IsLoggedin = true;
+            }
+            else
+            {
+                IsLoggedin = false;
+            }
+
+            await base.OnActionExecutionAsync(context, next);
+        }
         /// <summary>
         /// Sets current user session
         /// </summary>
@@ -23,7 +44,7 @@ namespace T3NITY_Realtors.Controllers
         /// <returns>UserModel</returns>
         public UserModel GetUser()
         {
-            UserModel user = null;
+            UserModel user = new UserModel();
             if (HttpContext.Session.IsAvailable && HttpContext.Session.Keys.Contains(UtilData.UserId))
             {
                 user = new UserModel()
@@ -34,10 +55,6 @@ namespace T3NITY_Realtors.Controllers
                     Role = HttpContext.Session.GetString(UtilData.Role)!,
 
                 };
-                if (IsNullOrEmpty(user))
-                {
-                    return null;
-                }
             }
 
             return user!;

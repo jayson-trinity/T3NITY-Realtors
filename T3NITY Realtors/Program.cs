@@ -15,6 +15,7 @@ builder.Services.AddTransient<ILandlordServices,LandlordServices>();
 builder.Services.AddTransient<IUserServices,UserServices>();
 builder.Services.AddTransient<IAdminServices,AdminServices>();
 builder.Services.AddTransient<IDbOperations,DbOperations>();
+builder.Services.AddTransient<IListingsServices,ListingsServices>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("RealtorDb")));

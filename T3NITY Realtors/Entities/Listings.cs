@@ -38,7 +38,7 @@ namespace T3NITY_Realtors.Entities
 
     public enum Status
     {
-        Processing,
+        Pending,
         Approved,
         Faked,
         Declined,
@@ -47,8 +47,9 @@ namespace T3NITY_Realtors.Entities
     public enum Type
     {
         Rent,
-        Sale
-        
+        Sale,
+        Lease
+
     }
 
 }
