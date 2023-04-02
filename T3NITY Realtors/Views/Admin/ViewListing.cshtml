@@ -8,9 +8,9 @@
             <div class="card-header bg-primary text-uppercase text-white">
                 <h4>New Property Details</h4>
             </div>
-            <form asp-action="AddMessage">
-
-                <div class="card-body">
+            <div class="card-body">
+                <form asp-action="AddMessage">
+                    <input type="hidden" asp-for="Id" />
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -116,19 +116,19 @@
                             </div>
                         </div>
                     </div>
-                    <input type="submit" value="Update" class="btn btn-md btn-primary rounded-0 text-uppercase" />
-            </form>
+                    <input type="submit" value="Update" class="btn btn-md btn-primary rounded-1 text-uppercase mt-1" />
+                </form>
 
-            <div class="form-group mt-2">
-                <a class="btn btn-md btn-success rounded-0 text-uppercase bgBtn"> Approve</a>
-                <a class="btn btn-md btn-danger rounded-0 text-uppercase bgBtn"> Reject</a>
-                <a class="btn btn-md btn-warning rounded-0 text-uppercase bgBtn"> Suspend </a>
-                <a asp-action="Dashboard" class="btn btn-md btn-primary rounded-0 text-uppercase mt-1">
-                    <i class="fas fa-less-than"> </i> Back
-                </a>
+                <div class="form-group mt-2">
+                    <a asp-action="AddStatus" asp-route-id="@Model.Id" asp-route-status="Approved" class="btn btn-md btn-success rounded-0 text-uppercase bgBtn"> Approve</a>
+                    <a asp-action="AddStatus" asp-route-id="@Model.Id" asp-route-status="Declined" class="btn btn-md btn-danger rounded-0 text-uppercase bgBtn"> Decline</a>
+                    <a asp-action="AddStatus" asp-route-id="@Model.Id" asp-route-status="Suspended" class="btn btn-md btn-warning rounded-0 text-uppercase bgBtn"> Suspend </a>
+                    <a asp-action="Dashboard" class="btn btn-md btn-primary rounded-1 text-uppercase mt-1">
+                        <i class="fas fa-less-than"> </i> Back
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 </div>

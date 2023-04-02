@@ -8,7 +8,7 @@ namespace T3NITY_Realtors.Controllers
     {
 
         public bool IsLoggedin;
-        public UserModel CurrentUser { get; set; }
+        public UserModel? CurrentUser { get; set; }
 
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
@@ -44,7 +44,7 @@ namespace T3NITY_Realtors.Controllers
         /// <returns>UserModel</returns>
         public UserModel GetUser()
         {
-            UserModel user = new ();
+            UserModel user = new();
             if (HttpContext.Session.IsAvailable && HttpContext.Session.Keys.Contains(UtilData.UserId))
             {
                 user = new UserModel()
@@ -69,7 +69,7 @@ namespace T3NITY_Realtors.Controllers
         }
 
 
-        public string GetImgString (byte[] img)
+        public string GetImgString(byte[] img)
         {
             return img == null ? string.Empty : "data:image/png;base64," + Convert.ToBase64String(img);
         }

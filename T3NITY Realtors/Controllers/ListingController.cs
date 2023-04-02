@@ -15,7 +15,7 @@ namespace T3NITY_Realtors.Controllers
         public IActionResult Listings()
         {
             var listData = _listingsServices.GetAllListings();
-            return View();
+            return View(listData);
         }
     }
 }

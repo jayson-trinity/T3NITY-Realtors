@@ -59,7 +59,7 @@ namespace T3NITY_Realtors.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("Admin");
+                    b.ToTable("Admin", (string)null);
                 });
 
             modelBuilder.Entity("T3NITY_Realtors.Entities.Customer", b =>
@@ -99,7 +99,7 @@ namespace T3NITY_Realtors.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("T3NITY_Realtors.Entities.Landlord", b =>
@@ -139,7 +139,7 @@ namespace T3NITY_Realtors.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("Landlords");
+                    b.ToTable("Landlords", (string)null);
                 });
 
             modelBuilder.Entity("T3NITY_Realtors.Entities.ListingImages", b =>
@@ -178,7 +178,7 @@ namespace T3NITY_Realtors.Migrations
 
                     b.HasIndex("ListingsId");
 
-                    b.ToTable("ListingImages");
+                    b.ToTable("ListingImages", (string)null);
                 });
 
             modelBuilder.Entity("T3NITY_Realtors.Entities.Listings", b =>
@@ -237,7 +237,7 @@ namespace T3NITY_Realtors.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("Listings");
+                    b.ToTable("Listings", (string)null);
                 });
 
             modelBuilder.Entity("T3NITY_Realtors.Entities.Users", b =>
@@ -271,7 +271,7 @@ namespace T3NITY_Realtors.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("T3NITY_Realtors.Entities.Admin", b =>

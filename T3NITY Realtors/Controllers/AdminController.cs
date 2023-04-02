@@ -52,12 +52,27 @@ namespace T3NITY_Realtors.Controllers
         {
             if (IsLoggedin)
             {
-                var ch = _listingsServices.UpdateListingWithMessage(model);
-                if (ch)
+                if (_listingsServices.UpdateListingWithMessage(model))
                 {
-                    _toastNotification.AddSuccessToastMessage("Message Addes");
+                    _toastNotification.AddSuccessToastMessage("Message Added");
                 }
-                return View(model);
+                return RedirectToAction("ViewListing", new { id = model.Id });
+
+            }
+            return RedirectToAction("Login", "Account");
+        }
+
+        public IActionResult AddStatus(int id, string status)
+        {
+            if (IsLoggedin)
+            {
+                if (_listingsServices.ChangeStatusListing(id, status))
+                {
+                    _toastNotification.AddSuccessToastMessage("Property " + status);
+                    return RedirectToAction("Dashboard");
+                }
+                _toastNotification.AddErrorToastMessage("An Error Occured. Ensure you add Message.");
+                return RedirectToAction("ViewListing", new { id });
             }
             return RedirectToAction("Login", "Account");
         }

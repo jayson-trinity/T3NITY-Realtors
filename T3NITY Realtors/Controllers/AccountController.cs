@@ -52,7 +52,7 @@ namespace T3NITY_Realtors.Controllers
             if (res)
             {
                 _toastNotification.AddSuccessToastMessage("Registration Successfull");
-               return RedirectToAction("Login");
+                return RedirectToAction("Login");
             }
             else
             {
@@ -93,6 +93,14 @@ namespace T3NITY_Realtors.Controllers
             }
 
             return View(user);
+        }
+
+        public IActionResult LogOut()
+        {
+            ViewBag.Name = null;
+            CurrentUser = null;
+            HttpContext.Session.Clear();
+            return View("Login");
         }
     }
 }

@@ -18,10 +18,13 @@ namespace T3NITY_Realtors.Entities
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
+
             builder.Entity<Users>(entity =>
             {
                 entity.HasIndex(e => e.Username).IsUnique();
             });
+            SeedUsers(builder);
         }
         public override int SaveChanges()
         {
@@ -44,6 +47,25 @@ namespace T3NITY_Realtors.Entities
             return base.SaveChanges();
         }
 
+        private void SeedUsers(ModelBuilder builder)
+        {
+            builder.Entity<Users>().HasData(new Users()
+            {
+                Id = 1,
+                Role = UtilData.Admin,
+                Username = "admin@gmail.com",
+                Password = UtilData.GetHash("Admin*123")
+            });
+            builder.Entity<Admin>().HasData(new Admin()
+            {
+                Email = "admin@gmail.com",
+                FirstName = "AdminF",
+                LastName = "AdminL",
+                PhoneNumber = "00000000000",
+                UsersId = 1,
+                Id = 1,
+            });
+        }
     }
 
 }

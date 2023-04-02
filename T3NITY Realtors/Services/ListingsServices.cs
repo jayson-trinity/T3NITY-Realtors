@@ -78,6 +78,7 @@ namespace T3NITY_Realtors.Services
                     dbListings.ContactInfo = listingsModel.ContactInfo;
                     dbListings.Description = listingsModel.Description;
                     dbListings.Name = listingsModel.Name;
+                    dbListings.Status = Status.Pending;
                     dbListings.ListingCategory = (ListingCategory)Enum.Parse(typeof(ListingCategory), listingsModel.ListingCategory);
                     dbListings.Price = listingsModel.Price;
                     dbListings.Type = (Entities.Type)Enum.Parse(typeof(Entities.Type), listingsModel.Type);
@@ -184,6 +185,8 @@ namespace T3NITY_Realtors.Services
             {
                 if (imageUpload != null)
                 {
+                    var tranz = _DbOperations.GetDbContext();
+                    tranz.BeginTransaction();
                     var dbListings = _DbOperations.ListingsRepository().Find(l => l.Id == imageUpload.ListingsId) ?? throw new Exception("Invalid Listing ID");
 
                     ListingImages images = new()
@@ -195,7 +198,8 @@ namespace T3NITY_Realtors.Services
                         IsDefault = imageUpload.IsDefault
                     };
                     var dbImages1 = _DbOperations.ListingImagedRepository().Add(images);
-
+                    dbListings.Status = Status.Pending;
+                    _DbOperations.ListingsRepository().Add(dbListings);
                     return true;
                 }
             }
@@ -264,6 +268,10 @@ namespace T3NITY_Realtors.Services
                     tranz.BeginTransaction();
 
                     var dbListings = _DbOperations.ListingsRepository().Find(l => l.Id == ListingId);
+                    if (status is "Suspended" or "Declined" && string.IsNullOrWhiteSpace(dbListings.AdminMessage))
+                    {
+                        return false;
+                    }
                     dbListings.Status = (Status)Enum.Parse(typeof(Status), status);
 
                     _DbOperations.ListingsRepository().Update(dbListings, dbListings.Id);
