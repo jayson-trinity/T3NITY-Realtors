@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace T3NITY_Realtors.Entities
 {
     public class Listings : BaseEntity
     {
-        
+
         public string Name { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }
@@ -39,7 +38,6 @@ namespace T3NITY_Realtors.Entities
     {
         Pending,
         Approved,
-        Faked,
         Declined,
         Suspended
     }

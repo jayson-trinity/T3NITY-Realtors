@@ -5,7 +5,9 @@ html {
 @media (min-width: 768px) {
  
 }
-
+.bgBtn{
+    width:30%;
+}
 html {
   position: relative;
   min-height: 100%;

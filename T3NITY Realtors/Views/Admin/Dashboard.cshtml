@@ -43,11 +43,11 @@
             <div class=" d-flex justify-content-center">
                 <h4>Properties</h4>
             </div>
-            <div class=" d-flex justify-content-end mb-2">
+       @*     <div class=" d-flex justify-content-end mb-2">
                 <a class="btn btn-primary" asp-controller="LandLord" asp-action="CreateListing">
                     <i class="far fa-plus-square"></i> Add New Listing
                 </a>
-            </div>
+            </div>*@
             <table id="dataTable" class="table table-sm table-bordered table-striped" style="width:100%">
                 <thead>
                     <tr>
@@ -72,17 +72,17 @@
                         <td>@row.Status</td>
                         <td>@row.AdminMessage</td>
                         <td>
-                            <a href="#">
+                            <a href="ViewListing/@row.Id">
                                 <span style="font-size:15px;">
-                                    <i class="fas fa-pen mr-5" style="font-size:10px;"></i>Edit
+                                    <i class="far fa-folder-open mr-5" style="font-size:10px;"></i>View
                                 </span>
                             </a>
-
+@*
                             <a href="Deletlisting/@row.Id">
                                 <span style="font-size:15px;">
                                     <i class="fas fa-trash ml-5" style="font-size:10px;"></i>Delete
                                 </span>
-                            </a>
+                            </a>*@
 
 
 

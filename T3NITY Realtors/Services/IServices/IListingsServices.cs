@@ -12,7 +12,9 @@ namespace T3NITY_Realtors.Services.IServices
         ListingsViewModel GetListingById(int listingId);
         IEnumerable<ListingImages> GetListingImages(int listingId);
         IEnumerable<ListingsViewModel> GetListings(int userId);
+        IEnumerable<ListingsViewModel> GetListings();
         bool UpdateListing(ListingsModel listingsModel, int userId);
+        bool UpdateListingWithMessage(ListingsViewModel listingsModel);
         bool UploadImages(ImageUpload imageUpload);
     }
 }

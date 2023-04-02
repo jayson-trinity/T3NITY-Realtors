@@ -33,7 +33,7 @@
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-2">
-                    <input asp-for="Password" class="form-control"  type="password" aria-required="true" />
+                    <input asp-for="Password" class="form-control" type="password" aria-required="true" />
                     <label asp-for="Password"></label>
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
@@ -43,12 +43,12 @@
                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-2">
-                     <select asp-for="Role">
+                    <select asp-for="Role">
                         <option value="Customer">Customer</option>
                         <option value="Landlord">Landlord</option>
                     </select>
                 </div>
-               
+
                 <button id="registerSubmit" type="submit" class="mb-2 w-100 btn btn-lg btn-primary">Register</button>
 
             </form>

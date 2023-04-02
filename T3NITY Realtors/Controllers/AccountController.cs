@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 using T3NITY_Realtors.Models;
 using T3NITY_Realtors.Services.IServices;
 
@@ -10,14 +11,16 @@ namespace T3NITY_Realtors.Controllers
         protected ILandlordServices _landlordServices;
         protected IAdminServices _adminServices;
         protected IUserServices _userServices;
+        private readonly IToastNotification _toastNotification;
 
 
-        public AccountController(ICustomerServices customerServices, ILandlordServices landlordServices, IAdminServices adminServices, IUserServices userServices)
+        public AccountController(ICustomerServices customerServices, ILandlordServices landlordServices, IAdminServices adminServices, IUserServices userServices, IToastNotification toastNotification)
         {
             _customerServices = customerServices;
             _landlordServices = landlordServices;
             _adminServices = adminServices;
             _userServices = userServices;
+            _toastNotification = toastNotification;
         }
 
 
@@ -48,9 +51,8 @@ namespace T3NITY_Realtors.Controllers
             #region Checks if res is True
             if (res)
             {
-                ViewBag.Message = "Registration Successful";
-                RedirectToAction("Login");
-
+                _toastNotification.AddSuccessToastMessage("Registration Successfull");
+               return RedirectToAction("Login");
             }
             else
             {

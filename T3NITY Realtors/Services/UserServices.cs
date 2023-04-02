@@ -52,6 +52,11 @@ namespace T3NITY_Realtors.Services
                 var land = dbOperations.LandlordsRepository().Find(c => c.UsersId == users.Id);
                 return land;
             }
+            if (users.Role == UtilData.Admin)
+            {
+                var admin = dbOperations.AdminRepository().Find(c => c.UsersId == users.Id);
+                return admin;
+            }
             return null;
         }
 

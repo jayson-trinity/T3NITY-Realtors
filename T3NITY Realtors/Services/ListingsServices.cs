@@ -103,11 +103,11 @@ namespace T3NITY_Realtors.Services
             try
             {
 
-                var _listings = _DbOperations.ListingsRepository().GetAll().Where(l => l.UsersId == userId).Select(l => (ListingsViewModel)l).ToList();
-                foreach (var list in _listings)
-                {
-                    list.DefaultImages = _DbOperations.ListingImagedRepository().Find(i => i.ListingsId == list.Id && i.IsDefault);
-                }
+                var _listings = _DbOperations.ListingsRepository().GetAll().Where(l => l.UsersId == userId).OrderBy(l => l.CreatedAt).Select(l => (ListingsViewModel)l).ToList();
+                //foreach (var list in _listings)
+                //{
+                //    list.DefaultImages = _DbOperations.ListingImagedRepository().Find(i => i.ListingsId == list.Id && i.IsDefault);
+                //}
                 return _listings;
             }
             catch (Exception e)
@@ -118,13 +118,28 @@ namespace T3NITY_Realtors.Services
 
             return null;
         }
+        public IEnumerable<ListingsViewModel> GetListings()
+        {
+            try
+            {
 
+                var _listings = _DbOperations.ListingsRepository().GetAll().OrderBy(l => l.CreatedAt).Select(l => (ListingsViewModel)l).ToList();
+                return _listings;
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+
+            return null;
+        }
         public IEnumerable<ListingsViewModel> GetAllListings()
         {
             try
             {
 
-                var _listings = _DbOperations.ListingsRepository().GetAll().Where(l => l.Status == Status.Approved && l.Available).Select(l => (ListingsViewModel)l).ToList();
+                var _listings = _DbOperations.ListingsRepository().GetAll().Where(l => l.Status == Status.Approved && l.Available).OrderBy(l => l.CreatedAt).Select(l => (ListingsViewModel)l).ToList();
                 foreach (var list in _listings)
                 {
                     list.DefaultImages = _DbOperations.ListingImagedRepository().Find(i => i.ListingsId == list.Id && i.IsDefault);
@@ -149,7 +164,7 @@ namespace T3NITY_Realtors.Services
                 {
                     var _listing = (ListingsViewModel)_DbOperations.ListingsRepository().Find(l => l.Id == listingId);
 
-                    _listing.ListingImages = _DbOperations.ListingImagedRepository().GetAll().Where(i => i.ListingsId == _listing.Id);
+                    _listing.ListingImages = _DbOperations.ListingImagedRepository().GetAll().Where(i => i.ListingsId == _listing.Id).ToList();
 
                     return _listing;
                 }
@@ -265,5 +280,32 @@ namespace T3NITY_Realtors.Services
 
             return false;
         }
+
+        public bool UpdateListingWithMessage(ListingsViewModel listingsModel)
+        {
+            var tranz = _DbOperations.GetDbContext();
+            try
+            {
+                if (listingsModel != null)
+                {
+                    tranz.BeginTransaction();
+
+                    var dbListings = _DbOperations.ListingsRepository().Find(l => l.Id == listingsModel.Id);
+                    dbListings.AdminMessage = listingsModel.AdminMessage;
+                    _DbOperations.ListingsRepository().Update(dbListings, dbListings.Id);
+
+                    tranz.CommitTransaction();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                tranz.RollbackTransaction();
+                throw new Exception(e.Message);
+            }
+
+            return false;
+        }
+
     }
 }
