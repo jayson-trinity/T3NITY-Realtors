@@ -3,11 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace T3NITY_Realtors.Entities
 {
-    public class ListingImages
+    public class ListingImages : BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        
         public byte[] FileByte { get; set; }
         public string Extension { get; set; }
         public string FileName { get; set; }

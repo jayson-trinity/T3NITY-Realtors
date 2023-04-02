@@ -34,10 +34,12 @@ namespace T3NITY_Realtors.Services
                         Price = listingsModel.Price,
                         Status = Status.Pending,
                         Type = (Entities.Type)Enum.Parse(typeof(Entities.Type), listingsModel.Type),
-                        UsersId = userId
+                        UsersId = userId,
+                        AdminMessage = String.Empty,
+                        Available = listingsModel.Available
                     };
 
-                    var dbListings = _DbOperations.ListingsRepository().Add(listing); ;
+                    var dbListings = _DbOperations.ListingsRepository().Add(listing);
 
                     ListingImages images = new()
                     {
@@ -79,6 +81,7 @@ namespace T3NITY_Realtors.Services
                     dbListings.ListingCategory = (ListingCategory)Enum.Parse(typeof(ListingCategory), listingsModel.ListingCategory);
                     dbListings.Price = listingsModel.Price;
                     dbListings.Type = (Entities.Type)Enum.Parse(typeof(Entities.Type), listingsModel.Type);
+                    dbListings.Available = listingsModel.Available;
 
                     _DbOperations.ListingsRepository().Update(dbListings, dbListings.Id);
 
@@ -121,7 +124,7 @@ namespace T3NITY_Realtors.Services
             try
             {
 
-                var _listings = _DbOperations.ListingsRepository().GetAll().Where(l => l.Status == Status.Approved).Select(l => (ListingsViewModel)l).ToList();
+                var _listings = _DbOperations.ListingsRepository().GetAll().Where(l => l.Status == Status.Approved && l.Available).Select(l => (ListingsViewModel)l).ToList();
                 foreach (var list in _listings)
                 {
                     list.DefaultImages = _DbOperations.ListingImagedRepository().Find(i => i.ListingsId == list.Id && i.IsDefault);

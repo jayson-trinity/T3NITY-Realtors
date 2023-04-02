@@ -3,11 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace T3NITY_Realtors.Entities
 {
-    public class Landlord
+    public class Landlord : BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }

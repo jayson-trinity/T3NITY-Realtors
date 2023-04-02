@@ -44,7 +44,7 @@ namespace T3NITY_Realtors.Controllers
         /// <returns>UserModel</returns>
         public UserModel GetUser()
         {
-            UserModel user = new UserModel();
+            UserModel user = new ();
             if (HttpContext.Session.IsAvailable && HttpContext.Session.Keys.Contains(UtilData.UserId))
             {
                 user = new UserModel()
@@ -66,6 +66,12 @@ namespace T3NITY_Realtors.Controllers
                 .Where(pi => pi.PropertyType == typeof(string))
                 .Select(pi => (string)pi.GetValue(myObject))
                 .Any(value => string.IsNullOrEmpty(value));
+        }
+
+
+        public string GetImgString (byte[] img)
+        {
+            return img == null ? string.Empty : "data:image/png;base64," + Convert.ToBase64String(img);
         }
     }
 }

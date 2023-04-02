@@ -3,11 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace T3NITY_Realtors.Entities
 {
-    public class Listings
+    public class Listings : BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        
         public string Name { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }
@@ -15,6 +13,7 @@ namespace T3NITY_Realtors.Entities
         public decimal Price { get; set; }
         public ListingCategory ListingCategory { get; set; }
         public Status Status { get; set; }
+        public bool Available { get; set; }
         public Type Type { get; set; }
         public string AdminMessage { get; set; }
         public int UsersId { get; set; }

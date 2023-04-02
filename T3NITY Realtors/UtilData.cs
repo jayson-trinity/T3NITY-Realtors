@@ -11,6 +11,7 @@ namespace T3NITY_Realtors
         public const string UserName = "UserName";
         public const string FirstName = "FirstName";
         public const string Role = "Role";
+        public const string Admin = "Admin";
 
         public static string GetHash(string text)
         {

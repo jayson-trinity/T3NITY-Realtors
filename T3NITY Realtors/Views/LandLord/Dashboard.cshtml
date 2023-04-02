@@ -64,15 +64,30 @@
           @foreach (var row in Model.Listings)
         {
             <tr>
-                <td>@count++</td>
+                <td>@(++count)</td>
                 <td>@row.Name</td>
                 <td>@row.Address</td>
                 <td>@row.ContactInfo</td>
                 <td>@row.Price</td>
                 <td>@row.Status</td>
                 <td>@row.AdminMessage</td>
-                <td><i class="fas fa-delete d-flex justify-content-end align-content-end" style="font-size:24px;"></i>
-                    <i class="fas fa-trash d-flex justify-content-end align-content-end" style="font-size:24px;"></i> </td>
+                <td>
+                    <a href="#">
+                        <span style="font-size:15px;">
+                            <i class="fas fa-pen mr-5" style="font-size:10px;"></i>Edit
+                            </span>
+                    </a>
+                    
+                    <a href="Deletlisting/@row.Id">
+                        <span style="font-size:15px;">
+                            <i class="fas fa-trash ml-5" style="font-size:10px;"></i>Delete
+                         </span>
+                    </a>
+                   
+
+                    
+                    
+                </td>
             </tr>
         }
                

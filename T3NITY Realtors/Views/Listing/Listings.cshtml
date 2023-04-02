@@ -1,0 +1,27 @@
+﻿@model IEnumerable<ListingsViewModel>
+<div class="container" aling="center">
+    
+
+   <div class="row row-cols-4">
+       @{
+           for (var i = 0; i < 8; i++)
+           {
+               <div class="col">
+           <div class="card mb-2 pb-3" style="width: 18rem; height: 18rem;">
+               <img class="card-img-top" src="/3bed.jpg" alt="Card image cap" style="height:40%">
+               <div class="card-body">
+                   <h6 class="card-title">Card title</h6>
+                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                   <div class="d-flex justify-content-end">
+                    <a href="#" class="btn btn-primary">View More</a>
+                </div>
+               </div>
+           </div>
+       </div>  
+           }
+       }
+     
+ 
+    </div>
+
+</div>

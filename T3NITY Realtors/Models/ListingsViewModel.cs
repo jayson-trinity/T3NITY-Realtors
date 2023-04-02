@@ -13,7 +13,7 @@ namespace T3NITY_Realtors.Models
         public string Status { get; set; }
         public string ListingCategory { get; set; }
         public string Type { get; set; }
-
+        public bool Available { get; set; }
         public string AdminMessage { get; set; }
         public ListingImages DefaultImages { get; set; }
         public IEnumerable<ListingImages> ListingImages { get; set; }
@@ -28,6 +28,7 @@ namespace T3NITY_Realtors.Models
                 ContactInfo = v.ContactInfo,
                 Description = v.Description,
                 Id = v.Id,
+                Available = v.Available,
                 ListingCategory = v.ListingCategory.ToString(),
                 Name = v.Name,
                 Price = v.Price,

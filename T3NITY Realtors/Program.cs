@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using NToastNotify;
 using T3NITY_Realtors.Entities;
 using T3NITY_Realtors.Repository;
 using T3NITY_Realtors.Repository.IRepository;
@@ -16,10 +17,15 @@ builder.Services.AddTransient<IUserServices,UserServices>();
 builder.Services.AddTransient<IAdminServices,AdminServices>();
 builder.Services.AddTransient<IDbOperations,DbOperations>();
 builder.Services.AddTransient<IListingsServices,ListingsServices>();
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("RealtorDb")));
-
+builder.Services.AddRazorPages().AddNToastNotifyNoty(new NotyOptions
+{
+    ProgressBar = true,
+    Timeout = 5000
+});
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options => {
     options.IdleTimeout = TimeSpan.FromMinutes(5);//You can set Time   
@@ -37,7 +43,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseNToastNotify();
 app.UseRouting();
 app.UseSession();
 app.UseAuthorization();

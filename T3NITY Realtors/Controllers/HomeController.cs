@@ -13,6 +13,20 @@ namespace T3NITY_Realtors.Controllers
 
         public IActionResult Index()
         {
+            if (CurrentUser.Role == UtilData.Customer)
+            {
+                return RedirectToAction("Listings", "Listing");
+            }
+
+            if (CurrentUser.Role == UtilData.Landlord)
+            {
+                return RedirectToAction("Dashboard", "LandLord");
+            }
+
+            if (CurrentUser.Role == UtilData.Admin)
+            {
+                return RedirectToAction("Dashboard", "Admin");
+            }
             return View();
         }
 

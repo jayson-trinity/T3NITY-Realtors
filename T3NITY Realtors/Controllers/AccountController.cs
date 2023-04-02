@@ -78,16 +78,9 @@ namespace T3NITY_Realtors.Controllers
                 if (loginCheck != null)
                 {
                     SetUser(loginCheck);
-                    if (loginCheck.Role == UtilData.Customer)
-                    {
-                        return RedirectToAction("Index", "Listing");
-                    }
 
-                    if (loginCheck.Role == UtilData.Landlord)
-                    {
-                        return RedirectToAction("Dashboard", "LandLord");
-                    }
-                    return View();
+                    return RedirectToAction("Index", "Home");
+
                 }
 
             }

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace T3NITY_Realtors.Entities
 {
@@ -19,9 +18,30 @@ namespace T3NITY_Realtors.Entities
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Users>(entity => {
+            builder.Entity<Users>(entity =>
+            {
                 entity.HasIndex(e => e.Username).IsUnique();
             });
+        }
+        public override int SaveChanges()
+        {
+            var entries = ChangeTracker
+                .Entries()
+                .Where(e => e.Entity is BaseEntity && (
+                        e.State == EntityState.Added
+                        || e.State == EntityState.Modified));
+
+            foreach (var entityEntry in entries)
+            {
+                ((BaseEntity)entityEntry.Entity).UpdatedDate = DateTime.Now;
+
+                if (entityEntry.State == EntityState.Added)
+                {
+                    ((BaseEntity)entityEntry.Entity).CreatedAt = DateTime.Now;
+                }
+            }
+
+            return base.SaveChanges();
         }
 
     }
