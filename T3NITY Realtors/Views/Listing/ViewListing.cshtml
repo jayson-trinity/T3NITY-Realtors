@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="col-6">
-                        <span class="d-flex justify-content-end text-monospace text-success"> Price: <b class="ml-2 pl-2">₦@(String.Format("{0:0,0.00}", Model.Price))</b></span>
+                        <span class="d-flex justify-content-end text-monospace text-success"> Price: <b class="ml-2 pl-2">&nbsp; ₦@(String.Format("{0:0,0.00}", Model.Price))</b></span>
                     </div>
                 </div>
 
@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="col-6">
-                        <span class="d-flex justify-content-end text-monospace text-success"> Contact Info: <b>@Model.ContactInfo</b></span>
+                        <span class="d-flex justify-content-end text-monospace text-success"> Contact Info: <b>&nbsp; @Model.ContactInfo</b></span>
                     </div>
                 </div>
 
@@ -58,11 +58,10 @@
                     }
                 </div>
 
-                <div class="form-group mt-2">
-                    <a asp-action="AddStatus" asp-route-id="@Model.Id" asp-route-status="Approved" class="btn btn-md btn-success rounded-0 text-uppercase bgBtn"> Make Payments</a>
-                    <a asp-action="AddStatus" asp-route-id="@Model.Id" asp-route-status="Declined" class="btn btn-md btn-danger rounded-0 text-uppercase bgBtn"> Request For Inspection</a>
-                    @*<a asp-action="AddStatus" asp-route-id="@Model.Id" asp-route-status="Suspended" class="btn btn-md btn-warning rounded-0 text-uppercase bgBtn"> Suspend </a>*@
-                    <a asp-action="Listings" class="btn btn-md btn-primary rounded-1 text-uppercase mt-1">
+                <div class="d-flex justify-content-center mt-2">
+                    <a class="btn btn-md btn-success rounded-1 text-uppercase bgBtn"> Make Payments</a>
+                    <a class="btn btn-md btn-danger rounded-1 text-uppercase bgBtn"> Request For Inspection</a>
+                    <a asp-action="Listings" class="btn btn-md btn-primary rounded-1 text-uppercase">
                         <i class="fas fa-less-than"> </i> Back
                     </a>
                     
