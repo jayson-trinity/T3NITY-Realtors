@@ -18,7 +18,7 @@ namespace T3NITY_Realtors.Models
         public decimal Price { get; set; }
 
         [Required]
-        [Display(Name = "ListingCategory")]
+        [Display(Name = "Listing Category")]
         public string ListingCategory { get; set; }
         public string Status { get; set; } = String.Empty;
         [Required]

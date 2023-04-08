@@ -19,7 +19,7 @@ namespace T3NITY_Realtors.Controllers
 
         public IActionResult Dashboard()
         {
-            if (IsLoggedin)
+            if (IsLoggedin && CurrentUser!.Role == UtilData.Admin)
             {
                 var listData = _listingsServices.GetListings();
                 var posted = listData.Count();
@@ -40,7 +40,7 @@ namespace T3NITY_Realtors.Controllers
 
         public IActionResult ViewListing(int id)
         {
-            if (IsLoggedin)
+            if (IsLoggedin && CurrentUser!.Role == UtilData.Admin)
             {
                 var listData = _listingsServices.GetListingById(id);
                 return View(listData);
@@ -50,7 +50,7 @@ namespace T3NITY_Realtors.Controllers
 
         public IActionResult AddMessage(ListingsViewModel model)
         {
-            if (IsLoggedin)
+            if (IsLoggedin && CurrentUser!.Role == UtilData.Admin)
             {
                 if (_listingsServices.UpdateListingWithMessage(model))
                 {
@@ -64,7 +64,7 @@ namespace T3NITY_Realtors.Controllers
 
         public IActionResult AddStatus(int id, string status)
         {
-            if (IsLoggedin)
+            if (IsLoggedin && CurrentUser!.Role == UtilData.Admin)
             {
                 if (_listingsServices.ChangeStatusListing(id, status))
                 {

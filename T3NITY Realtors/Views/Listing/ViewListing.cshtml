@@ -1,0 +1,90 @@
+﻿@model ListingsViewModel
+@{
+    var count = 0;
+}
+
+
+<div class="container" aling="center">
+
+    <div class="col-md-10 mx-auto py-4">
+        <div class="card">
+            <div class="card-header bg-primary text-uppercase text-white">
+                <h4>Property Details</h4>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title clapTxt">@Model.Name</h4>
+
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <span class="text-monospace text-success"> Type: <b>@Model.Type</b></span>
+                    </div>
+
+                    <div class="col-6">
+                        <span class="d-flex justify-content-end text-monospace text-success"> Price: <b class="ml-2 pl-2">₦@(String.Format("{0:0,0.00}", Model.Price))</b></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <span class="text-monospace text-success"> Listing Category: <b>@Model.ListingCategory</b></span>
+                    </div>
+
+                    <div class="col-6">
+                        <span class="d-flex justify-content-end text-monospace text-success"> Contact Info: <b>@Model.ContactInfo</b></span>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <span class="text-monospace text-success"> <b>Address: </b> @Model.Address</span>
+                </div>
+
+                <div class="form-group">
+                    <span class="text-monospace text-success"> <b>Description: </b>  @Model.Description</span>
+                </div>
+
+
+                <h5 class="mt-3">Property Images</h5>
+                <hr />
+
+                <div class="row row-cols-4 mt-2">
+                    @foreach (var item in Model.ListingImages)
+                    {
+                        count++;
+                        <div class="col">
+                            <img src="data:image;base64,@(Convert.ToBase64String(item.FileByte))" id="img@(count)"
+                                 onclick="imgClicked(img@(count))" style="width: 250px;" />
+                        </div>
+
+                    }
+                </div>
+
+                <div class="form-group mt-2">
+                    <a asp-action="AddStatus" asp-route-id="@Model.Id" asp-route-status="Approved" class="btn btn-md btn-success rounded-0 text-uppercase bgBtn"> Make Payments</a>
+                    <a asp-action="AddStatus" asp-route-id="@Model.Id" asp-route-status="Declined" class="btn btn-md btn-danger rounded-0 text-uppercase bgBtn"> Request For Inspection</a>
+                    @*<a asp-action="AddStatus" asp-route-id="@Model.Id" asp-route-status="Suspended" class="btn btn-md btn-warning rounded-0 text-uppercase bgBtn"> Suspend </a>*@
+                    <a asp-action="Listings" class="btn btn-md btn-primary rounded-1 text-uppercase mt-1">
+                        <i class="fas fa-less-than"> </i> Back
+                    </a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" id="viewImgModal"
+         data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" id="btnHideModal" lass="close" data-dismiss="modal">
+                        ×
+                    </button>
+                    <h4 class="modal-title">@Model.Name</h4>
+                </div>
+                <div class="modal-body">
+                   <img id="showImg" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

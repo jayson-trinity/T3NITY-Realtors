@@ -3,10 +3,28 @@
 
 // Write your JavaScript code.
 $(document).ready(function () {
+
     $('#dataTable').dataTable({
         processing: true,
         searching: true,
         paging: true
     });
+    var imdId = "";
+    $("#btnShowModal").click(function () {
+        $("#viewImgModal").modal('show');
+    });
+
+    $("#btnHideModal").click(function () {
+        $("#viewImgModal").modal('hide');
+    });
+
+
 
 });
+function imgClicked(imgID) {
+    //alert(imgID.id);
+    //console.log(imgID);
+   document.getElementById("showImg").src = imgID.src ;
+    $("#viewImgModal").modal('show');
+
+}

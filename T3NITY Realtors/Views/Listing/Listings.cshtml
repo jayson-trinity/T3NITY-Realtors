@@ -30,7 +30,8 @@
                             <p class="p-0 m-0 clapBigTxt">@item.Description</p>
 
                             <div class="d-flex justify-content-end mt-1">
-                                <a href="#" class="btn btn-primary">View More</a>
+                                <a asp-action="ViewListing" asp-route-id="@item.Id" class="btn btn-primary rounded-1"> View More</a>
+
                             </div>
                         </div>
                     </div>

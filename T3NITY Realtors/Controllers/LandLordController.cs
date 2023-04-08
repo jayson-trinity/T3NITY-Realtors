@@ -18,9 +18,9 @@ namespace T3NITY_Realtors.Controllers
 
         public IActionResult Dashboard()
         {
-            if (IsLoggedin)
+            if (IsLoggedin && CurrentUser!.Role == UtilData.Landlord)
             {
-                var listData = _listingsServices.GetListings(CurrentUser.Id);
+                var listData = _listingsServices.GetListings(CurrentUser!.Id);
                 var posted = listData.Count();
                 var approved = listData.Count(l => l.Status == "Approved");
                 var pending = listData.Count(l => l.Status == "Pending");
@@ -38,7 +38,7 @@ namespace T3NITY_Realtors.Controllers
 
         public IActionResult CreateListing()
         {
-            if (IsLoggedin)
+            if (IsLoggedin && CurrentUser!.Role == UtilData.Landlord)
             {
                 return View();
             }
@@ -49,13 +49,13 @@ namespace T3NITY_Realtors.Controllers
         public IActionResult CreateListing(ListingsModel model)
         {
 
-            if (IsLoggedin)
+            if (IsLoggedin && CurrentUser!.Role == UtilData.Landlord)
             {
                 if (!ModelState.IsValid)
                 {
                     return View(model);
                 }
-                if (_listingsServices.CreateListing(model, CurrentUser.Id))
+                if (_listingsServices.CreateListing(model, CurrentUser!.Id))
                 {
                     _toastNotification.AddSuccessToastMessage($"{model.Name} Added successfully!!!");
                     return RedirectToAction("Dashboard");
@@ -82,7 +82,7 @@ namespace T3NITY_Realtors.Controllers
 
         public IActionResult UpdateListing(int id)
         {
-            if (IsLoggedin)
+            if (IsLoggedin && CurrentUser!.Role == UtilData.Landlord)
             {
                 if (id == 0)
                 {
