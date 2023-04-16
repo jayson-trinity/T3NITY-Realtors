@@ -11,6 +11,7 @@ namespace T3NITY_Realtors.Repository.IRepository
         IGenericRepository<Landlord> LandlordsRepository();
         IGenericRepository<ListingImages> ListingImagedRepository();
         IGenericRepository<Listings> ListingsRepository();
+        IGenericRepository<Payments> PaymentsRepository();
         IGenericRepository<Users> UsersRepository();
     }
 }

@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using NToastNotify;
 using T3NITY_Realtors.Entities;
 using T3NITY_Realtors.Repository;
@@ -11,12 +10,13 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
 // Add services to the container.
-builder.Services.AddTransient<ICustomerServices,CustomerServices>();
-builder.Services.AddTransient<ILandlordServices,LandlordServices>();
-builder.Services.AddTransient<IUserServices,UserServices>();
-builder.Services.AddTransient<IAdminServices,AdminServices>();
-builder.Services.AddTransient<IDbOperations,DbOperations>();
-builder.Services.AddTransient<IListingsServices,ListingsServices>();
+builder.Services.AddTransient<ICustomerServices, CustomerServices>();
+builder.Services.AddTransient<ILandlordServices, LandlordServices>();
+builder.Services.AddTransient<IUserServices, UserServices>();
+builder.Services.AddTransient<IAdminServices, AdminServices>();
+builder.Services.AddTransient<IDbOperations, DbOperations>();
+builder.Services.AddTransient<IListingsServices, ListingsServices>();
+builder.Services.AddTransient<IPaymentServices, PaymentServices>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -27,7 +27,8 @@ builder.Services.AddRazorPages().AddNToastNotifyNoty(new NotyOptions
     Timeout = 5000
 });
 builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options => {
+builder.Services.AddSession(options =>
+{
     options.IdleTimeout = TimeSpan.FromMinutes(5);//You can set Time   
 });
 builder.Services.AddMvc();

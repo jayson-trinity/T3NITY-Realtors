@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+﻿using Microsoft.EntityFrameworkCore.Infrastructure;
 using T3NITY_Realtors.Entities;
 using T3NITY_Realtors.Repository.IRepository;
 
@@ -12,7 +11,7 @@ namespace T3NITY_Realtors.Repository
         {
             _context = context;
         }
-        public IGenericRepository<Users> UsersRepository() 
+        public IGenericRepository<Users> UsersRepository()
         {
             IGenericRepository<Users> repo = new GenericRepository<Users>(_context);
             return repo;
@@ -41,10 +40,16 @@ namespace T3NITY_Realtors.Repository
             IGenericRepository<Listings> repo = new GenericRepository<Listings>(_context);
             return repo;
         }
-        
+
         public IGenericRepository<ListingImages> ListingImagedRepository()
         {
             IGenericRepository<ListingImages> repo = new GenericRepository<ListingImages>(_context);
+            return repo;
+        }
+
+        public IGenericRepository<Payments> PaymentsRepository()
+        {
+            IGenericRepository<Payments> repo = new GenericRepository<Payments>(_context);
             return repo;
         }
 

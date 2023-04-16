@@ -15,6 +15,7 @@ namespace T3NITY_Realtors.Entities
         public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<ListingImages> ListingImages { get; set; }
         public virtual DbSet<Listings> Listings { get; set; }
+        public virtual DbSet<Payments> Payments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -49,22 +50,30 @@ namespace T3NITY_Realtors.Entities
 
         private void SeedUsers(ModelBuilder builder)
         {
-            builder.Entity<Users>().HasData(new Users()
+            try
             {
-                Id = 1,
-                Role = UtilData.Admin,
-                Username = "admin@gmail.com",
-                Password = UtilData.GetHash("Admin*123")
-            });
-            builder.Entity<Admin>().HasData(new Admin()
+                var id = new Random().Next(1, 10);
+                builder.Entity<Users>().HasData(new Users()
+                {
+                    Id = id,
+                    Role = UtilData.Admin,
+                    Username = "admin@gmail.com",
+                    Password = UtilData.GetHash("Admin*123")
+                });
+                builder.Entity<Admin>().HasData(new Admin()
+                {
+                    Email = "admin@gmail.com",
+                    FirstName = "AdminF",
+                    LastName = "AdminL",
+                    PhoneNumber = "00000000000",
+                    UsersId = id,
+                    Id = id,
+                });
+            }
+            catch (Exception)
             {
-                Email = "admin@gmail.com",
-                FirstName = "AdminF",
-                LastName = "AdminL",
-                PhoneNumber = "00000000000",
-                UsersId = 1,
-                Id = 1,
-            });
+
+            }
         }
     }
 

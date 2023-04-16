@@ -12,7 +12,7 @@ namespace T3NITY_Realtors.Services
         {
             _DbOperations = dbOperations;
         }
-       
+
         public bool RegisterCustomer(UserModel userModel)
         {
             var tranz = _DbOperations.GetDbContext();
@@ -77,6 +77,22 @@ namespace T3NITY_Realtors.Services
             }
 
             return false;
+        }
+
+        public Customer GetCustomerByID(int userId)
+        {
+
+            try
+            {
+                return _DbOperations.CustomersRepository().Find(c => c.UsersId == userId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return null;
         }
     }
 }

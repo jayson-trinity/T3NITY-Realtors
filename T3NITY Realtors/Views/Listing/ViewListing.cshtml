@@ -59,7 +59,7 @@
                 </div>
 
                 <div class="d-flex justify-content-center mt-2">
-                    <a class="btn btn-md btn-success rounded-1 text-uppercase bgBtn"> Make Payments</a>
+                    <a class="btn btn-md btn-success rounded-1 text-uppercase bgBtn" asp-action="PayForListing" asp-route-id="@Model.Id"> Make Payments</a>
                     <a class="btn btn-md btn-danger rounded-1 text-uppercase bgBtn"> Request For Inspection</a>
                     <a asp-action="Listings" class="btn btn-md btn-primary rounded-1 text-uppercase">
                         <i class="fas fa-less-than"> </i> Back
