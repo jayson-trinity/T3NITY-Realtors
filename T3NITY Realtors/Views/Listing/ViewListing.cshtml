@@ -59,12 +59,16 @@
                 </div>
 
                 <div class="d-flex justify-content-center mt-2">
-                    <a class="btn btn-md btn-success rounded-1 text-uppercase bgBtn" asp-action="PayForListing" asp-route-id="@Model.Id"> Make Payments</a>
-                    <a class="btn btn-md btn-danger rounded-1 text-uppercase bgBtn"> Request For Inspection</a>
+                    @if (Model.Available)
+                    {
+                        <a class="btn btn-md btn-success rounded-1 text-uppercase bgBtn" asp-action="PayForListing" asp-route-id="@Model.Id"> Make Payments</a>
+                        @*<a class="btn btn-md btn-danger rounded-1 text-uppercase bgBtn"> Request For Inspection</a>*@
+                    }
+
                     <a asp-action="Listings" class="btn btn-md btn-primary rounded-1 text-uppercase">
                         <i class="fas fa-less-than"> </i> Back
                     </a>
-                    
+
                 </div>
             </div>
         </div>
@@ -74,13 +78,13 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" id="btnHideModal" lass="close" data-dismiss="modal">
+                    <button type="button" id="btnAddHideModal" lass="close" data-dismiss="modal">
                         ×
                     </button>
                     <h4 class="modal-title">@Model.Name</h4>
                 </div>
                 <div class="modal-body">
-                   <img id="showImg" />
+                    <img id="showImg" />
                 </div>
 
             </div>

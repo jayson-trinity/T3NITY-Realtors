@@ -69,7 +69,7 @@ namespace T3NITY_Realtors.Controllers
 
         public IActionResult Deletlisting(int id)
         {
-            if (_listingsServices.DeletListing(id))
+            if (_listingsServices.DeleteListing(id))
             {
                 _toastNotification.AddSuccessToastMessage("Deleted");
             }
@@ -84,15 +84,62 @@ namespace T3NITY_Realtors.Controllers
         {
             if (IsLoggedin && CurrentUser!.Role == UtilData.Landlord)
             {
-                if (id == 0)
-                {
-                    return View();
-                }
                 var listData = _listingsServices.GetListingById(id);
 
                 return View(listData);
             }
             return RedirectToAction("Login", "Account");
+        }
+
+        [HttpPost]
+        public IActionResult UpdateListing(ListingsModel model)
+        {
+            if (IsLoggedin && CurrentUser!.Role == UtilData.Landlord)
+            {
+                if (_listingsServices.UpdateListing(model, CurrentUser.Id))
+                {
+                    _toastNotification.AddSuccessToastMessage("Updated");
+                }
+                else
+                {
+                    _toastNotification.AddErrorToastMessage("An error occured...");
+                }
+                return RedirectToAction("UpdateListing", new { id = model.Id });
+            }
+            return RedirectToAction("Login", "Account");
+        }
+
+        public IActionResult DeleteImage(int id, int listid)
+        {
+            if (_listingsServices.DeleteImage(id, listid))
+            {
+                _toastNotification.AddSuccessToastMessage("Deleted");
+            }
+            else
+            {
+                _toastNotification.AddErrorToastMessage("An error occured...");
+            }
+            return RedirectToAction("UpdateListing", new { id = listid });
+        }
+
+        [HttpPost]
+        public IActionResult UpdateImage(ImageUpload model)
+        {
+
+            if (IsLoggedin && CurrentUser!.Role == UtilData.Landlord)
+            {
+
+                if (_listingsServices.UploadImages(model))
+                {
+                    _toastNotification.AddSuccessToastMessage($"Added successfully!!!");
+                }
+                else
+                {
+                    _toastNotification.AddErrorToastMessage("An Error Occured...");
+                }
+            }
+            return RedirectToAction("UpdateListing", new { id = model.ListingsId });
+
         }
     }
 }

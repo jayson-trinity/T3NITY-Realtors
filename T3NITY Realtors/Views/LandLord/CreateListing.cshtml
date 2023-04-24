@@ -14,14 +14,14 @@
                         <div class="col-md-6">  
                             <div class="form-group">  
                                 <label asp-for="Name" class="control-label"></label>  
-                                <input asp-for="Name" class="form-control" />  
+                                <input asp-for="Name" class="form-control" required/>  
                                 <span asp-validation-for="Name" class="text-danger"></span>  
                             </div>  
                         </div>  
                         <div class="col-md-6">  
                             <div class="form-group">  
                                 <label asp-for="Price" class="control-label"></label>  
-                                <input asp-for="Price" type="number" class="form-control" />  
+                                <input asp-for="Price" type="number" class="form-control" required/>  
                                 <span asp-validation-for="Price" class="text-danger"></span>  
                             </div>  
                         </div>  
@@ -30,7 +30,7 @@
                         <div class="col-md-6">  
                             <div class="form-group">  
                                 <label asp-for="Type" class="control-label"></label>  
-                                <select asp-for="Type" class="form-control">  
+                                <select asp-for="Type" class="form-control" required>  
                                     <option value="">Choose Type</option>  
                                     <option value="Rent">Rent</option>  
                                     <option value="Sale">Sale</option>  
@@ -42,7 +42,7 @@
                         <div class="col-md-6">  
                             <div class="form-group"> 
                                  <label asp-for="ListingCategory" class="control-label"></label>  
-                                <select asp-for="ListingCategory" class="form-control">  
+                                <select asp-for="ListingCategory" class="form-control" required>  
                                     <option value="">Choose Listing Category</option>  
                                     <option value="Self_Contain">Self_Contain</option>  
                                     <option value="Mini_Flat">Mini_Flat</option>  
@@ -60,14 +60,14 @@
                         <div class="col-md-6">  
                             <div class="form-group">  
                                 <label asp-for="Address" class="control-label"></label>  
-                                <input asp-for="Address" class="form-control" />  
+                                <input asp-for="Address" class="form-control" required/>  
                                 <span asp-validation-for="Address" class="text-danger"></span>  
                             </div>  
                         </div>  
                         <div class="col-md-6">  
                             <div class="form-group">  
                                 <label asp-for="ContactInfo" class="control-label"></label>  
-                                <input asp-for="ContactInfo" class="form-control" />  
+                                <input asp-for="ContactInfo" class="form-control" required />  
                                 <span asp-validation-for="ContactInfo" class="text-danger"></span>  
                             </div>  
                         </div>  
@@ -76,7 +76,7 @@
                         <div class="col-md-6">  
                             <div class="form-group">  
                                  <label asp-for="Description" class="control-label"></label>  
-                                <textarea asp-for="Description" class="form-control"></textarea> 
+                                <textarea asp-for="Description" class="form-control" required></textarea> 
                                 <span asp-validation-for="Description" class="text-danger"></span>   
                             </div>  
                         </div>  
@@ -84,7 +84,7 @@
                             <div class="form-group">  
                                 <label asp-for="DefaultImage" class="control-label"></label>  
                                 <div class="custom-file">  
-                                    <input asp-for="DefaultImage"  class="form-control" type="file" accept=".jpg,.png,.jpeg">  
+                                    <input asp-for="DefaultImage"  class="form-control" type="file" accept=".jpg,.png,.jpeg" required>  
                                 </div>  
                                 <span asp-validation-for="DefaultImage" class="text-danger"></span>  
                             </div>  

@@ -9,22 +9,34 @@ $(document).ready(function () {
         searching: true,
         paging: true
     });
-    var imdId = "";
+
     $("#btnShowModal").click(function () {
         $("#viewImgModal").modal('show');
     });
 
     $("#btnHideModal").click(function () {
         $("#viewImgModal").modal('hide');
+        $("#addImgModal").modal('hide');
     });
 
 
+    $("#btnAddHideModal").click(function () {
+        $("#addImgModal").modal('hide');
+    });
+
+    $("#btnShowAddModal").click(function () {
+        $("#addImgModal").modal('show');
+    });
 
 });
 function imgClicked(imgID) {
-    //alert(imgID.id);
-    //console.log(imgID);
-   document.getElementById("showImg").src = imgID.src ;
+    document.getElementById("showImg").src = imgID.src;
     $("#viewImgModal").modal('show');
+
+}
+
+
+function imgAddClicked() {
+    $("#addImgModal").modal('show');
 
 }

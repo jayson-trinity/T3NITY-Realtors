@@ -7,7 +7,8 @@ namespace T3NITY_Realtors.Services.IServices
     {
         bool ChangeStatusListing(int ListingId, string status);
         bool CreateListing(ListingsModel listingsModel, int userId);
-        bool DeletListing(int listingId);
+        bool DeleteImage(int imageId, int listid);
+        bool DeleteListing(int listingId);
         IEnumerable<ListingsViewModel> GetAllListings();
         ListingsViewModel GetListingById(int listingId);
         IEnumerable<ListingImages> GetListingImages(int listingId);

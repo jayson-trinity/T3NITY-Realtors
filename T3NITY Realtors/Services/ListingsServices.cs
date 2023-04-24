@@ -143,7 +143,11 @@ namespace T3NITY_Realtors.Services
                 var _listings = _DbOperations.ListingsRepository().GetAll().Where(l => l.Status == Status.Approved && l.Available).OrderBy(l => l.CreatedAt).Select(l => (ListingsViewModel)l).ToList();
                 foreach (var list in _listings)
                 {
-                    list.DefaultImages = _DbOperations.ListingImagedRepository().Find(i => i.ListingsId == list.Id && i.IsDefault);
+                    list.DefaultImages = _DbOperations.ListingImagedRepository()
+                        .Find(i => i.ListingsId == list.Id && i.IsDefault)
+                        ?? _DbOperations.ListingImagedRepository()
+                                        .GetAll()
+                                        .FirstOrDefault(i => i.ListingsId == list.Id)!;
                 }
                 return _listings;
             }
@@ -180,15 +184,20 @@ namespace T3NITY_Realtors.Services
 
         public bool UploadImages(ImageUpload imageUpload)
         {
-
+            var tranz = _DbOperations.GetDbContext();
             try
             {
                 if (imageUpload != null)
                 {
-                    var tranz = _DbOperations.GetDbContext();
+
                     tranz.BeginTransaction();
                     var dbListings = _DbOperations.ListingsRepository().Find(l => l.Id == imageUpload.ListingsId) ?? throw new Exception("Invalid Listing ID");
-
+                    if (imageUpload.IsDefault)
+                    {
+                        var updImg = _DbOperations.ListingImagedRepository().Find(img => img.ListingsId == imageUpload.ListingsId && img.IsDefault);
+                        updImg.IsDefault = false;
+                        _DbOperations.ListingImagedRepository().Update(updImg, updImg.Id);
+                    }
                     ListingImages images = new()
                     {
                         FileByte = imageUpload.File.GetBytes(),
@@ -199,13 +208,15 @@ namespace T3NITY_Realtors.Services
                     };
                     var dbImages1 = _DbOperations.ListingImagedRepository().Add(images);
                     dbListings.Status = Status.Pending;
-                    _DbOperations.ListingsRepository().Add(dbListings);
+                    _DbOperations.ListingsRepository().Update(dbListings, dbListings.Id);
+                    tranz.CommitTransaction();
                     return true;
                 }
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                tranz.RollbackTransaction();
+                Console.WriteLine(e.Message);
             }
 
             return false;
@@ -228,7 +239,7 @@ namespace T3NITY_Realtors.Services
             return null;
         }
 
-        public bool DeletListing(int listingId)
+        public bool DeleteListing(int listingId)
         {
             var tranz = _DbOperations.GetDbContext();
 
@@ -244,6 +255,35 @@ namespace T3NITY_Realtors.Services
                     }
                     var dbListings = _DbOperations.ListingsRepository().Find(li => li.Id == listingId);
                     _DbOperations.ListingsRepository().Delete(dbListings);
+                    tranz.CommitTransaction();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                tranz.RollbackTransaction();
+                throw new Exception(e.Message);
+            }
+
+            return false;
+        }
+
+        public bool DeleteImage(int imageId, int listid)
+        {
+            var tranz = _DbOperations.GetDbContext();
+
+            try
+            {
+                if (imageId > 0)
+                {
+                    tranz.BeginTransaction();
+                    var dbListings = _DbOperations.ListingsRepository().Find(l => l.Id == listid) ?? throw new Exception("Invalid Listing ID");
+
+                    var dbListingImage = _DbOperations.ListingImagedRepository().Find(im => im.Id == imageId);
+                    _DbOperations.ListingImagedRepository().Delete(dbListingImage);
+                    dbListings.Status = Status.Pending;
+                    _DbOperations.ListingsRepository().Update(dbListings, dbListings.Id);
+
                     tranz.CommitTransaction();
                     return true;
                 }

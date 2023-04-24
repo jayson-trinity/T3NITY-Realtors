@@ -45,6 +45,11 @@ namespace T3NITY_Realtors.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+            if (CurrentUser.Role != UtilData.Customer)
+            {
+                _toastNotification.AddWarningToastMessage("only customers can make payments");
+                return RedirectToAction("Listings");
+            }
             var listData = _listingsServices.GetListingById(id);
             var cust = _customerServices.GetCustomerByID(CurrentUser.Id);
             var url = await _paymentServices.Pay(listData, cust);
@@ -53,7 +58,7 @@ namespace T3NITY_Realtors.Controllers
                 _toastNotification.AddSuccessToastMessage("Going to Payment Page");
                 return Redirect(url);
             }
-            return View("Listings");
+            return RedirectToAction("Listings");
         }
         public async Task<IActionResult> VerifyListingPayment(string invoiceId)
         {
